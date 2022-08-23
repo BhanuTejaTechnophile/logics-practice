@@ -6,41 +6,38 @@ process.stdin.on("data", function (input) {
     stdin_input += input;
 });
 
-let getEveryTableMaxBackCells = (table) => {
+const getInlineCells = (table) => {
     return table.map(row => {
-        let eachRowBlackCells =  row.map(element => {
-            let blackCells = element.match(/[#]+/g);
-            return blackCells ? blackCells[0].length : 0;
-        });
-        return Math.max(...eachRowBlackCells);
+        const blackCells = row.match(/[#]+/g);
+        return blackCells ? blackCells[0].length : 0;
+    });
+}
+
+const getMaxBorders = (tables) => {
+    return tables.map(table => {
+        return Math.max(...getInlineCells(table));
     });
 };
 
-let formatOutput = (output) => {
-    return output.reduce((result, currentValue) => {
-        return result + "\n" + currentValue;
-    }, "");
-}
-
-let formatInput = (input, tableIndex, formatted_input = []) => {
-    let inputLines = input.split("\n");
+const formatInput = (input, tableIndex, result = []) => {
+    const inputLines = input.split("\n");
     if(tableIndex >= inputLines.length) {
-        return formatted_input;
+        return result;
     }
 
-    let newTable = inputLines[tableIndex];
-    let tableRowCount = JSON.parse(newTable.split(" ")[0]);
-    let table = inputLines.slice(tableIndex + 1, tableIndex + 1 + tableRowCount);
-    formatted_input.push(table);
-
-    return formatInput(input, tableIndex + 1 + tableRowCount, formatted_input);
+    const newTable = inputLines[tableIndex];
+    const tableRowCount = parseInt(newTable.split(" ")[0]);
+    const tableBegining = tableIndex + 1;
+    const tableEnd = tableBegining + tableRowCount;
+    const table = inputLines.slice(tableBegining, tableEnd);
+    const formatted_input = [...result, table];
+    return formatInput(input, tableEnd, formatted_input);
 }
 
 function main() {
-    let formatted_input = formatInput(stdin_input, 1);
-    let output = getEveryTableMaxBackCells(formatted_input);
-    let formatted_output = formatOutput(output);
-    process.stdout.write(formatted_output + "\n");
+    const formatted_input = formatInput(stdin_input, 1);
+    const output = getMaxBorders(formatted_input);
+    process.stdout.write(output.join("\n") + "\n");
 }
 
 process.stdin.on("end", function () {
