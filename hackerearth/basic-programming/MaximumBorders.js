@@ -6,7 +6,7 @@ process.stdin.on("data", function (input) {
     stdin_input += input;
 });
 
-const getInlineCells = (table) => {
+const getInlineCellCount = (table) => {
     return table.map(row => {
         const blackCells = row.match(/[#]+/g);
         return blackCells ? blackCells[0].length : 0;
@@ -15,7 +15,7 @@ const getInlineCells = (table) => {
 
 const getMaxBorders = (tables) => {
     return tables.map(table => {
-        return Math.max(...getInlineCells(table));
+        return Math.max(...getInlineCellCount(table));
     });
 };
 
