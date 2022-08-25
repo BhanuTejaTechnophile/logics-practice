@@ -5,4 +5,4 @@ const getOutput = (input) => {
   return 2*x == y ? "Yes" : "No";
 }
 
-module.exports = getOutput;
+module.exports = getOutput; // Why not use modules ? Ex: export {getOutput}
