@@ -1,4 +1,4 @@
-const getOutput = require("./Zoos.js");
+const getOutput = require("./Zoos.js"); // Why not use modules ? Ex: import instead of require
 
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
