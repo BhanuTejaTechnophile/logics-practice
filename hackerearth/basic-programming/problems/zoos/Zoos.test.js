@@ -10,7 +10,7 @@ describe("zoos", () => {
     expect(getOutput("zzoo")).to.equal("No");
   });
 
-  it("should return true for zoo input string", () => {
+  it("should return true for zoo input string", () => { // test name is same as the first test
     expect(getOutput("zzoooo")).to.equal("Yes");
   });
 });
