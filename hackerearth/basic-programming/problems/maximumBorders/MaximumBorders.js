@@ -14,32 +14,31 @@ const getInlineCellCount = (table) => {
 }
 
 const getMaxBorders = (tables) => {
-    return tables.map(table => {
-        return Math.max(...getInlineCellCount(table));
-    });
+    return tables.map(table => Math.max(...getInlineCellCount(table)));
 };
 
-const formatInput = (input, tableIndex, result = []) => {
-    const inputLines = input.split("\n");
-    if(tableIndex >= inputLines.length) {
-        return result;
-    }
+const formatInput = (input, tableIndex) => {
+    const inputLines = input.trim().split("\n");
+    const table = [];
+    let index = tableIndex;
 
-    const newTable = inputLines[tableIndex];
-    const tableRowCount = parseInt(newTable.split(" ")[0]);
-    const tableBegining = tableIndex + 1;
-    const tableEnd = tableBegining + tableRowCount;
-    const table = inputLines.slice(tableBegining, tableEnd);
-    const formatted_input = [...result, table];
-    return formatInput(input, tableEnd, formatted_input);
+    while(index < inputLines.length) {
+        const newTable = inputLines[index];
+        const tableRowCount = parseInt(newTable.split(" ")[0]);
+        const tableBegining = index + 1;
+        const tableEnd = tableBegining + tableRowCount;
+        table.push(inputLines.slice(tableBegining, tableEnd));
+        index = tableEnd;
+    }
+    return table;
 }
 
-function main() {
+function main(stdin_input) {
     const formatted_input = formatInput(stdin_input, 1);
     const output = getMaxBorders(formatted_input);
     process.stdout.write(output.join("\n") + "\n");
 }
 
 process.stdin.on("end", function () {
-    main();
+    main(stdin_input);
 });
