@@ -1,4 +1,4 @@
-const getOutput = require("./Template.js");
+const getOutput = require("./StringPalindrome.js");
 
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
