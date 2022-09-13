@@ -1,4 +1,4 @@
-const getOutput = require("./Problem.js");
+const getOutput = require("./Solution.js");
 
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");

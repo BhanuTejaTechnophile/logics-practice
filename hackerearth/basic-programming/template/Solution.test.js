@@ -1,4 +1,4 @@
-const getOutput = require("./Problem.js");
+const getOutput = require("./Solution.js");
 
 describe("Template", () => {
   it("should ", () => {
